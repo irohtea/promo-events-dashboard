@@ -6,11 +6,13 @@ interface EventsListProps {
 }
 
 export default function EventsList({ events }: EventsListProps) {
-   return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-         {events.map((event) => (
-            <EventCard key={event.id} {...event} />
-         ))}
-      </div>
-   );
+  return (
+    <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+      {events.map((event) => (
+        <div key={event.id} className="break-inside-avoid">
+          <EventCard {...event} />
+        </div>
+      ))}
+    </div>
+  );
 }

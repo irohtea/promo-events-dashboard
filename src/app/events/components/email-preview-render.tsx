@@ -1,0 +1,50 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+import { render } from '@react-email/render'
+import EmailPreview from './email-preview'
+
+export default function EmailPreviewRenderer() {
+  const [html, setHtml] = useState('')
+
+  useEffect(() => {
+    async function generateHtml() {
+      const rendered = await render(<EmailPreview />, { pretty: true })
+      setHtml(rendered)
+    }
+
+    generateHtml()
+  }, [])
+
+  const openInNewTab = () => {
+   //  const fullHtml = html
+    const newWindow = window.open('', '_blank')
+    if (newWindow) {
+      newWindow.document.open()
+      newWindow.document.write(html)
+      newWindow.document.close()
+    }
+  }
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <h2 className="text-lg font-semibold mb-2">Raw HTML</h2>
+        <button
+          onClick={openInNewTab}
+          className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        >
+          Open Preview in New Tab
+        </button>
+      </div>
+
+      <div>
+        <h2 className="text-lg font-semibold mb-2">Rendered Preview</h2>
+        <div
+          className="border bg-white p-4 shadow-sm"
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+      </div>
+    </div>
+  )
+}

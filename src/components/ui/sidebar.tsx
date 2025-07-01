@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 export function Sidebar() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -16,7 +16,7 @@ export function Sidebar() {
         onClick={() => setOpen(!open)}
         className={cn(
           'fixed top-4 z-50 transition-all',
-          open ? 'left-66' : 'left-6'
+          open ? 'left-64' : 'left-2'
         )}
       >
         <Menu className="h-6 w-6 text-white bg-gray-900 rounded p-1 shadow" />

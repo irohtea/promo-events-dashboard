@@ -4,18 +4,16 @@ import { useEffect, useState } from 'react'
 import { render } from '@react-email/render'
 import EmailPreview from './email-preview'
 
-export default function EmailPreviewRenderer() {
+export default function EmailPreviewRenderer({ blocks }: { blocks: any[] }) {
   const [html, setHtml] = useState('')
 
   useEffect(() => {
     async function generateHtml() {
-      const rendered = await render(<EmailPreview />, { pretty: true })
+      const rendered = await render(<EmailPreview blocks={blocks} />, { pretty: true })
       setHtml(rendered)
     }
-
     generateHtml()
-  }, [])
-
+  }, [blocks]) 
   const openInNewTab = () => {
    //  const fullHtml = html
     const newWindow = window.open('', '_blank')
@@ -27,9 +25,8 @@ export default function EmailPreviewRenderer() {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="">
       <div>
-        <h2 className="text-lg font-semibold mb-2">Raw HTML</h2>
         <button
           onClick={openInNewTab}
           className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
@@ -37,11 +34,9 @@ export default function EmailPreviewRenderer() {
           Open Preview in New Tab
         </button>
       </div>
-
       <div>
         <h2 className="text-lg font-semibold mb-2">Rendered Preview</h2>
         <div
-          className="border bg-white p-4 shadow-sm"
           dangerouslySetInnerHTML={{ __html: html }}
         />
       </div>

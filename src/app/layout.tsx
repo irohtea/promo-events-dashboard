@@ -1,36 +1,33 @@
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { Sidebar } from "@/components/ui/sidebar";
+import { Geist, Geist_Mono } from 'next/font/google';
+import './globals.css';
+import { Sidebar } from '@/components/ui/sidebar';
+import { ReactQueryProvider } from './providers/ ReactQueryProvider';
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+  variable: '--font-geist-sans',
+  subsets: ['latin']
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: '--font-geist-mono',
+  subsets: ['latin']
 });
 
 export default function RootLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <ReactQueryProvider>
           <div className="flex flex-col min-h-screen px-12 gap-16 font-[family-name:var(--font-geist-sans)]">
-              <Sidebar />
-              <main className="flex flex-col flex-auto py-16">
-                {children}
-              </main>
-              <footer className="text-center text-sm text-gray-500">
-                @2025 Nobel Events
-              </footer>
-            </div>
+            <Sidebar />
+            <main className="flex flex-col flex-auto py-16">{children}</main>
+            <footer className="text-center text-sm text-gray-500">@2025 Nobel Events</footer>
+          </div>
+        </ReactQueryProvider>
       </body>
     </html>
   );

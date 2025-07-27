@@ -2,7 +2,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { Sidebar } from '@/components/ui/sidebar';
 import { ReactQueryProvider } from './providers/ ReactQueryProvider';
-
+import { AuthProvider } from './providers/SessionProvider';
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin']
@@ -21,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <AuthProvider>
         <ReactQueryProvider>
           <div className="flex flex-col min-h-screen px-12 gap-16 font-[family-name:var(--font-geist-sans)]">
             <Sidebar />
@@ -28,6 +29,7 @@ export default function RootLayout({
             <footer className="text-center text-sm text-gray-500">@2025 Nobel Events</footer>
           </div>
         </ReactQueryProvider>
+        </AuthProvider>
       </body>
     </html>
   );
